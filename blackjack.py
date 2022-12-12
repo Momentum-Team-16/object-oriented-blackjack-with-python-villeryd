@@ -11,7 +11,7 @@ class Card:
         self.suit = suit
 
     def __str__(self):
-        return f'{self.rank} of {self.suit}'
+        return f'{self.rank}{self.suit}    '
 
 
 card = Card('♣️', 2)
@@ -30,7 +30,7 @@ class Deck:
     def __str__(self):
         deck_as_string = ''
         for card in self.cards:
-            deck_as_string += f'{card.rank}{card.suit}  '
+            deck_as_string += f'{card}'
         return deck_as_string
 
     def shuffle(self):
@@ -42,12 +42,40 @@ class Game:
         self.deck = Deck(SUITS, RANKS)
         self.deck.shuffle()
 
+    def deal_card(self, player):
+        dealt_card = self.deck.cards.pop()
+        player.hand.append(dealt_card)
 
-my_deck = Deck(SUITS, RANKS)
-print(my_deck)
-my_deck.shuffle()
-print(f'shuffling cards\n\n\n{my_deck}')
 
+class Dealer:
+    def __init__(self):
+        self.hand = []
+
+    def __str__(self):
+        hand_as_string = ''
+        for card in self.hand:
+            hand_as_string += f'{card}'
+            return hand_as_string
+
+
+class Player:
+    def __init__(self):
+        self.hand = []
+
+    def __str__(self):
+        hand_as_string = ''
+        for card in self.hand:
+            hand_as_string += f'{card}'
+            return hand_as_string
+
+
+player1 = Player()
+dealer = Dealer()
 new_game = Game()
+
+new_game.deal_card(player1)
+new_game.deal_card(dealer)
+print(player1, dealer)
+
 
 print(f'\n\n\n{new_game.deck}')
